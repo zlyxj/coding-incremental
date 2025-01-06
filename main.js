@@ -75,6 +75,9 @@ function update(){//每50ms运行一次的更新函数
     document.getElementById("u3effect").innerHTML=fmt3dig(game.u3.bought.plus(1).pow(0.5))
     document.getElementById("u3price").innerHTML=formatnum(game.u3.price)
     if(game.u3.bought.greaterThanOrEqualTo(9))document.getElementById("u3scaling").innerHTML="<del>坐地起价的</del>遥远的"
+    for(var j=0;j<2;j++){
+        document.getElementById("i"+(j+1))className=game.imps[j]?"boughtimp":"imp"
+    }
 }
 function buyu1(){
     if(game.codes.greaterThanOrEqualTo(game.u1.price)){
@@ -147,7 +150,6 @@ switch(a){
             if(game.codes.greaterThanOrEqualTo(1048576)){
                 game.codes=game.codes.minus(1048576)
                 game.imps[a-1]=true;
-document.getElementById("i"+String(a)).className="boughtimp"
                 break;
                 
             }
@@ -156,8 +158,7 @@ document.getElementById("i"+String(a)).className="boughtimp"
         {
             if(game.codes.greaterThanOrEqualTo(2147483647)){
                 game.codes=game.codes.minus(2147483647)
-                game.imps[a-1]=true;
-document.getElementById("i"+String(a)).className="boughtimp"
+                game.imps[a-1]=true
                 break;
             }
         }
