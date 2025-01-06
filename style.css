@@ -1,0 +1,32 @@
+body{
+    font-family:'Consolas','Menlo','Courier',monospace,sans-serif;
+    text-align:center;
+    color:white;
+    background-color:black;
+}
+button{
+    font-family:'Consolas','Menlo','Courier',monospace,sans-serif;
+    background-color:black;
+    color:white;
+    border-color:white;
+}
+.tabButton{
+    font-size:18px
+}
+.hidden{
+    display:none
+}
+.tab{
+    display:block
+}
+.imp{
+    width:160px;
+    height:160px;
+}
+.boughtimp{
+    width:160px;
+    height:160px;
+}
+a{
+    color:aquamarine;
+}
