@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="break_eternity.js"></script>
+        <script src="main.js"></script>
+        <title>程序员增量(v0.0.1α)</title>
+    </head>
+    <body>
+        <p>你写了<span style="font-size:24px" id="codewrote">0</span>行代码。</p>
+        <p>你正在每秒写<span id="codingspeed">1</span>行代码。</p>
+        <button onclick="t1()" class="tabButton">编程</button>
+        <button onclick="t3()" class="tabButton">导入</button>
+        <button onclick="t2()" class="tabButton">设置</button>
+        <div id="tab1" class="tab">
+            <p>升级1：每秒多写1行代码。（效果：+<span id="u1effect">0</span>）</p>
+            <p>价格：<span id="u1price">1</span>行代码</p>
+            <button onclick="buyu1()">购买</button>
+            <button onclick="buyu1max()">购买最大</button>
+            <p>升级2：升级1的效果增强1倍。（效果：×<span id="u2effect">1</span>）</p>
+            <p>价格：<span id="u2price">15</span>行代码</p>
+            <button onclick="buyu2()">购买</button>
+            <button onclick="buyu2max()">购买最大</button>
+            <p><span id="u3scaling"></span>升级3：增强升级2的效果。（效果：x->x<sup><span id="u3effect">1</span></sup>）</p>
+            <p>价格：<span id="u3price">1,000</span>行代码</p>
+            <button onclick="buyu3()">购买</button>
+            <button onclick="buyu3max()">购买最大</button>
+        </div>
+        <div id="tab2" class="hidden">
+            <button onclick="hardreset()">硬重置</button>
+            <a href="https://zlyxj.github.io">尝试我的其他作品！</a>
+            <p>本游戏使用了<a href="https://github.com/Patashu/break_eternity.js">break_eternity.js</a></p>
+            <p>程序员增量 v -e<sup>πi</sup>cos 0 作者：增量游戏君</p>
+            <p><a href="/coding-incremental/changelog.html">更新日志</a></p>
+        </div>
+        <div id="tab3" class="hidden">
+            <p>点击下面的按钮以导入库。</p>
+            <button class="imp" onclick="imp(1)" id="i1">import powerfulU1<br>升级1的效果变为原来的200%<br>1,048,576行代码</button>
+            <button class="imp" onclick="imp(2)" id="i2">import powerfulU2<br>升级2的效果变为原来的135%<br>2.15e9行代码</button>
+        </div>
+    </body>
+</html>
