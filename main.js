@@ -156,8 +156,8 @@ switch(a){
         }
     case 2:
         {
-            if(game.codes.greaterThanOrEqualTo(2e8)){
-                game.codes=game.codes.minus(2e8)
+            if(game.codes.greaterThanOrEqualTo(2e7)){
+                game.codes=game.codes.minus(2e7)
                 game.imps[a-1]=true
                 break;
             }
