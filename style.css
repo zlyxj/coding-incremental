@@ -26,6 +26,8 @@ button{
 .boughtimp{
     width:160px;
     height:160px;
+    color:black;
+    background-color:green;
 }
 a{
     color:aquamarine;
