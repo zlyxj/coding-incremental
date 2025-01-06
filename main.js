@@ -64,7 +64,7 @@ function getu3buyable(n){
     else return new D(9).plus(n.divideBy(1000*Math.pow(50,9)).log(85).plus(1).floor())
 }
 function update(){//每50ms运行一次的更新函数
-    game.cps=(game.u1.bought.times(game.imps[0]?2:1)).plus(1).times((game.u2.bought.plus(1).times(game.imps[1]?1.35:1)).pow(game.u3.bought.plus(1).pow(0.5)))
+    game.cps=(game.u1.bought.times(game.imps[0]?5:1)).plus(1).times((game.u2.bought.plus(1).times(game.imps[1]?1.35:1)).pow(game.u3.bought.plus(1).pow(0.5)))
     game.codes=game.codes.plus(game.cps.times(0.05))
     document.getElementById("codewrote").innerHTML=formatnum(game.codes)
     document.getElementById("codingspeed").innerHTML=formatnum(game.cps)
