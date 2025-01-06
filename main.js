@@ -76,7 +76,7 @@ function update(){//每50ms运行一次的更新函数
     document.getElementById("u3price").innerHTML=formatnum(game.u3.price)
     if(game.u3.bought.greaterThanOrEqualTo(9))document.getElementById("u3scaling").innerHTML="<del>坐地起价的</del>遥远的"
     for(var j=0;j<2;j++){
-        document.getElementById("i"+(j+1))className=game.imps[j]?"boughtimp":"imp"
+        document.getElementById("i"+(j+1)).className=game.imps[j]?"boughtimp":"imp"
     }
 }
 function buyu1(){
