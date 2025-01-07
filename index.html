@@ -5,13 +5,14 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="break_eternity.js"></script>
         <script src="main.js"></script>
-        <title>编程增量v1</title>
+        <title>编程增量v1.41</title>
     </head>
     <body>
         <p>你写了<span style="font-size:24px" id="codewrote">0</span>行代码。</p>
         <p>你正在每秒写<span id="codingspeed">1</span>行代码。</p>
         <button onclick="t1()" class="tabButton">编程</button>
         <button onclick="t3()" class="tabButton">导入</button>
+        <button onclick="t4()" class="tabButton prestige" id="t4button">声望</button>
         <button onclick="t2()" class="tabButton">设置</button>
         <div id="tab1" class="tab">
             <p>升级1：每秒多写1行代码。（效果：+<span id="u1effect">0</span>）</p>
@@ -31,13 +32,25 @@
             <button onclick="hardreset()">硬重置</button>
             <a href="https://zlyxj.github.io">尝试我的其他作品！</a>
             <p>本游戏使用了<a href="https://github.com/Patashu/break_eternity.js">break_eternity.js</a></p>
-            <p>程序员增量 v -e<sup>πi</sup>cos 0 作者：增量游戏君</p>
+            <p>程序员增量 v<math><msqrt><mn>2</mn></msqrt></math> 作者：增量游戏君</p>
             <p><a href="/coding-incremental/changelog.html">更新日志</a></p>
+            <p>当前endgame:1.00e9行代码且导入4个库</p>
         </div>
         <div id="tab3" class="hidden">
             <p>点击下面的按钮以导入库。</p>
             <button class="imp" onclick="imp(1)" id="i1">import powerfulU1<br>升级1的效果变为原来的500%<br>1,048,576行代码</button>
             <button class="imp" onclick="imp(2)" id="i2">import powerfulU2<br>升级2的效果变为原来的135%<br>20,000,000行代码</button>
+            <button class="imp" onclick="imp(3)" id="i3">import CodesToU1<br>升级1的效果变为原来的(1+log<sub>100</sub>(代码+1))倍<br>125,000,000行代码</button>
+            <br>
+            <button class="imp" onclick="imp(4)" id="i4">import Layer0Auto<br>你可以自动购买升级1-3<br>1.00e9行代码</button>
+        </div>
+        <div id="tab4" class="hidden">
+            开发中......
+            <!--
+            <p style="color:#4444FF">你拥有<b id="pp">0</b>声望点。</p>
+            <p>到达1.00e9行代码可以声望，获得的声望点p=2<sup>log<sub>1,000</sub>(代码数/1e9)</sup></p>
+            <button class="prestige" id="pbutton">声望并获得<span id="ppgain">0</span></button>
+        -->
         </div>
     </body>
-</html>
+</html
