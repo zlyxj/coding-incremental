@@ -188,7 +188,9 @@ function hardreset(){
             u3:{
                 bought:new D(0),
                 price:new D(1000)
-            }
+            },
+            imps:[false,false,false,false],
+            prestigepoints:new D(0)
         }
     }
     else{
