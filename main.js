@@ -11,6 +11,7 @@ function fmt3dig(n){
     else return (Math.round(n*1000)/1000).toLocaleString()
 }
 //游戏信息
+imprice=[new D(1048576),new D(2e7),new D(1.25e8),new D(1e9)]
 if(localStorage.CodingIncremental == undefined){
 var game={
     codes:new D(1),
@@ -27,7 +28,8 @@ var game={
         bought:new D(0),
         price:new D(1000)
     },
-    imps:[false,false]
+    imps:[false,false,false,false],
+    prestigepoints:new D(0)
 }
 }
 else {
@@ -37,7 +39,10 @@ var game=JSON.parse(gamedata)}
 if(game.imps==undefined){
     game.imps=new Array(2)
 }
-for(var i=0;i<2;i++){
+if(game.prestigepoints==undefined){
+    game.prestigepoints=new D(0)
+}
+for(var i=0;i<4;i++){
     if(game.imps[i]==undefined)game.imps[i]=false;
 }
 //以下代码用于将游戏数据转换成Decimal类型
@@ -49,6 +54,7 @@ game.u2.bought=new D(game.u2.bought)
 game.u2.price=new D(game.u2.price)
 game.u3.bought=new D(game.u3.bought)
 game.u3.price=new D(game.u3.price)
+game.prestigepoints=new D(game.prestigepoints)
 function getu1price(n){
     return new D(1.2).pow(n)
 }
@@ -64,7 +70,7 @@ function getu3buyable(n){
     else return new D(9).plus(n.divideBy(1000*Math.pow(50,9)).log(85).plus(1).floor())
 }
 function update(){//每50ms运行一次的更新函数
-    game.cps=(game.u1.bought.times(game.imps[0]?5:1)).plus(1).times((game.u2.bought.plus(1).times(game.imps[1]?1.35:1)).pow(game.u3.bought.plus(1).pow(0.5)))
+    game.cps=(game.u1.bought.times(game.imps[0]?5:1/*如果导入了powerfulU1，则×5*/).times(game.imps[2]?(game.codes.plus(1).log(100).plus(1)/*如果导入了CodesToU1则生效*/ ):1)).plus(1).times((game.u2.bought.plus(1).times(game.imps[1]?1.35:1)).pow(game.u3.bought.plus(1).pow(0.5)))
     game.codes=game.codes.plus(game.cps.times(0.05))
     document.getElementById("codewrote").innerHTML=formatnum(game.codes)
     document.getElementById("codingspeed").innerHTML=formatnum(game.cps)
@@ -75,9 +81,10 @@ function update(){//每50ms运行一次的更新函数
     document.getElementById("u3effect").innerHTML=fmt3dig(game.u3.bought.plus(1).pow(0.5))
     document.getElementById("u3price").innerHTML=formatnum(game.u3.price)
     if(game.u3.bought.greaterThanOrEqualTo(9))document.getElementById("u3scaling").innerHTML="<del>坐地起价的</del>遥远的"
-    for(var j=0;j<2;j++){
-        document.getElementById("i"+(j+1)).className=game.imps[j]?"boughtimp":"imp"
+    for(var i=1;i<=4;i++){
+        if(game.imps[i-1]==true){document.getElementById("i"+String(i)).className="boughtimp"};
     }
+    if(game.imps[3]){buyu1max();buyu2max();buyu3max();}
 }
 function buyu1(){
     if(game.codes.greaterThanOrEqualTo(game.u1.price)){
@@ -128,42 +135,39 @@ function t1(){
     document.getElementById("tab1").className="tab"
     document.getElementById("tab2").className="hidden"
     document.getElementById("tab3").className="hidden"
+    document.getElementById("tab4").className="hidden"
 }
 function t2(){
     document.getElementById("tab2").className="tab"
     document.getElementById("tab1").className="hidden"
     document.getElementById("tab3").className="hidden"
+    document.getElementById("tab4").className="hidden"
 }
 function t3(){
     document.getElementById("tab3").className="tab"
     document.getElementById("tab1").className="hidden"
     document.getElementById("tab2").className="hidden"
+    document.getElementById("tab4").className="hidden"
+}
+function t4(){
+    document.getElementById("tab4").className="tab"
+    document.getElementById("tab1").className="hidden"
+    document.getElementById("tab2").className="hidden"
+    document.getElementById("tab3").className="hidden"
 }
 function save(){//保存函数
     localStorage.CodingIncremental=JSON.stringify(game)
 }
 function imp(a){
 if(game.imps[a-1]==false){
-switch(a){
-    case 1:
-        {
-            if(game.codes.greaterThanOrEqualTo(1048576)){
-                game.codes=game.codes.minus(1048576)
+            if(game.codes.greaterThanOrEqualTo(imprice[a-1])){
+                game.codes=game.codes.minus(imprice[a-1])
                 game.imps[a-1]=true;
-                break;
+document.getElementById("i"+String(a)).className="boughtimp"
+                
                 
             }
         }
-    case 2:
-        {
-            if(game.codes.greaterThanOrEqualTo(2e7)){
-                game.codes=game.codes.minus(2e7)
-                game.imps[a-1]=true
-                break;
-            }
-        }
-}
-}
 }
 setInterval(update,50)
 setInterval(save,10000)
@@ -185,6 +189,8 @@ function hardreset(){
                 bought:new D(0),
                 price:new D(1000)
             }
+            imps:[false,false,false,false],
+            prestigepoints:new D(0)
         }
     }
     else{
