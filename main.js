@@ -166,6 +166,7 @@ function PUupdate(){
 }
 PUupdate()
 function update(){//每50ms运行一次的更新函数
+    if(game.pbuy_k.lessThan(1))game.pbuy_k=new D(1);
     game.cps=(game.u1.bought.times(game.imps[4]?game.u1.bought.pow(0.5).plus(1):1)
     .times(game.imps[0]?5:1/*如果导入了powerfulU1，则×5*/)
     .times(game.imps[2]?(game.codes.plus(1).log(100).plus(1)/*如果导入了CodesToU1则生效*/ ):1)).plus(1)
