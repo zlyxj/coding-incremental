@@ -111,6 +111,7 @@ game.u3.price=new D(game.u3.price)
 game.prestigepoints=new D(game.prestigepoints)
 game.pbuy_k=new D(game.pbuy_k)
 game.pbuy1cost=new D(game.pbuy1cost)
+if(typeof game.prups != 'undefined')
 if(game.prups[4])document.getElementById("pbuyables").class="tab";
 }
 init()
