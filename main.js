@@ -63,6 +63,7 @@ function fmt3dig(n,f=game.notation){
     if(n.greaterThanOrEqualTo(new D(1e9))){return formatnum(n,f)}
     else return (Math.round(n*1000)/1000).toFixed(3)
 }
+if(typeof game == 'undefined')game={};
 //游戏信息
 var game;
 imprice=[new D(1048576),new D(2e7),new D(1.25e8),new D(1e9),new D(1e10)];
