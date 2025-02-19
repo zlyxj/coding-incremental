@@ -155,5 +155,18 @@
     <script src="prestige.js"></script>
     <script src="files/news.js"></script>
     <script>if(typeof game.prups[4] != 'undefined')document.getElementById("pbuyables").className=(game.prups[4])?"tab":"hidden"
-    DUupdate();</script>
+    DUupdate();
+        if(typeof game.galaxy =='undefined'){game.galaxy={
+        unlocked:false,
+        amount:new D(0),
+        price:new D(1e18),
+        data:new D(0),
+        dps:new D(0),
+        dups:[
+            false,false,false,
+            false,false,false
+        ]
+    }}
+    </script>
+    
 </html>
