@@ -1,5 +1,5 @@
 const PU_LENGTH=6;
-const D=Decimal
+//const D=Decimal
 
 //数字格式化
 //如果不合法会返回Invalid Notation!
