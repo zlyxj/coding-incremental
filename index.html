@@ -11,14 +11,15 @@
         <title>编程增量v2</title>
     </head>
     <body>
-        <div id="news">Not-Rolling News</div>
+        <div id="news" style="height:30px">Not-Rolling News</div>
         <hr>
         <p>你写了<span style="font-size:24px" id="codewrote">0</span>行代码。</p>
         <p>你正在每秒写<span id="codingspeed">1</span>行代码。</p>
-        <button onclick="t1()" class="tabButton">编程</button>
-        <button onclick="t3()" class="tabButton">导入</button>
-        <button onclick="t4()" class="tabButton prestige" id="t4button">声望</button>
-        <button onclick="t2()" class="tabButton">设置</button>
+        <button onclick="t(1)" class="tabButton">编程</button>
+        <button onclick="t(3)" class="tabButton">导入</button>
+        <button onclick="t(4)" class="tabButton prestige" id="t4button">声望</button>
+        <button onclick="t(5)" class="tabButton">挑战</button>
+        <button onclick="t(2)" class="tabButton">设置</button>
         <div id="tab1" class="tab">
             <button onclick="{buyu3max();buyu2max();buyu1max()}">全部最大</button>
             <button onclick="L0AutoToggle()" id="L0AutoButton">自动：<span id="L0Auto">开</span></button>
@@ -40,16 +41,41 @@
             <button onclick="hardreset()">硬重置</button>
             <a href="https://zlyxj.github.io">尝试我的其他作品！</a>
             <p>本游戏使用了<a href="https://github.com/Patashu/break_eternity.js">break_eternity.js</a></p>
-            <p>程序员增量 v<math><mi>csc</mi><mn>30</mn><mo>⁰</mo></math> 作者：增量游戏君</p>
             <p><a href="/coding-incremental/changelog.html">更新日志</a></p>
             <br>
             <button onclick="exportSave()">导出</button>
             <button onclick="importSave()">导入</button>
             <button onclick="save()">手动保存</button>
             <button onclick="changeNotation()">切换计数法</button>
-            <p>当前endgame:大约会在1e15行代码解锁所有内容。</p>
+            <p>当前endgame:6个数据升级</p>
             <p>本游戏暂时不支持离线进度。</p>
+            <button onclick="init()">遇到游戏卡住，请尝试点击这里！</button><br>
             <input id="save" placeholder="导出后的存档"></p>
+            <h3>关于</h3>
+            <p>程序员增量 v e 作者：增量游戏君</p>
+            <p>你可以制作本游戏的mod，但你需要标注原作者和原游戏地址</p>
+            <p>支持所有序数增量吧吧友，你可以在点击链接游玩吧友们自制的增量游戏</p>
+            <a href="https://seanxlx2011.github.io/">数据增量重制版</a>|
+            <a href="https://0i00000000a7.github.io/points-incremental-rewritten/">点数增量重制版</a>|
+            <a href="https://aster131072.github.io/incremental_evolution/">增量进化</a>|
+            <a href="https://veryrrdefine.github.io/MdVI-rewritten/">多维体积增量</a><br>
+            <a href="https://qqqe308.github.io/The-Rhythm-Game-Tree/">音乐游戏树</a>|
+            <a href="https://qqqe308.github.io/Anti-Anti-Softcap-Tree/111/">反反软上限树</a>|
+            <a href="https://a262537412640768744.github.io/homework-incremental/main.html">作业增量</a>|
+            <a href="https://goldenapple125.github.io/RBN/">大数之路</a><br>
+            <a href="https://veryrrdefine.github.io/Xiaopengyou-Tree/">小朋友树</a>|
+            <a href="https://a262537412640768744.github.io/EnergyReset/">能源重置</a>|
+            <a href="https://rg3072.github.io/anti-softcap-tree/111/">反软上限树</a>|
+            <a href="https://hypcos.github.io/too-many-layers/">太多层级</a><br>
+            <a href="https://hydrogenated233.github.io/TI/">植树增量</a>
+            <p>其他游戏与网站</p>
+            <a href="https://ivark.github.io/AntimatterDimensions/">反物质维度</a>|
+            <a href="https://mrredshark77.github.io/incremental-mass-rewritten/">质量增量重制版</a><br>
+            <a href="https://space.bilibili.com/678102522?spm_id_from=333.337.0.0">作者Bilibili账号</a>|
+            <a href="https://tieba.baidu.com/home/main?id=tb.1.ed1ce1b1.3DQhaGMPeXJeTgRPbWutlQ?t=1737176147&fr=index">作者百度贴吧</a><br>
+            <a href="https://www.minecraft.net/zh-hans">我的世界</a><br>
+            <a href='https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click'>编程增量新版抢先玩</a><br>
+            <span style="font-size:5px">“要警惕诈骗"</span>
         </div>
         <div id="tab3" class="hidden">
             <p>点击下面的按钮以导入库。</p>
@@ -67,6 +93,8 @@
             <p>到达1.00e9行代码可以声望，获得的声望点p=³√(代码数/1.00e9)</sup></p>
             <button class="prestige" id="pbutton" onclick="prestige()">声望并获得<span id="ppgain">0</span>声望点(PP)</button>
             <br>
+            <button class="prestige" onclick="t4_1()">声望升级</button>
+            <button class="prestige" onclick="t4_2()">代码星系</button>
             <div id="tab4-1" class="tab">
             <h3>升级</h3>
             <br>
@@ -82,7 +110,7 @@
                 <br>
                 <button class="prestige" onclick="buypupgrade(4)" id="pu4">5.解锁可重复声望升级<br>60 PP</button>
                 <br>
-                <button class="prestige" onclick="buypupgrade(5)" id="pu5">6.当你买得起某个库，你将会自动获得它<br>180 PP</button>
+                <button class="prestige" onclick="buypupgrade(5)" id="pu5">6.当你买得起某个库，你将会自动获得它(仅限前5个)<br>180 PP</button>
            </div>
            
             <div id="pbuyables" class="hidden">
@@ -90,11 +118,42 @@
             <button class="prestige" onclick="pbuyable1()">R1.写代码速度^k<br>k=<b id="pbuy_k">1.000</b><br>+0.025 <span id="pbuy1cost">15</span> PP</span></button>
         </div>
             </div>
+            <div id="tab4-2" class="hidden">
+                <button onclick="unlockGalaxy()" style="width:280px;height:150px" class="galaxy" id="unlockGalaxyButton">解锁星系<br>1e19行代码</button>
+                <div id="galaxy_main" class="hidden">
+                    你拥有<span style="font-size:18px" id="galaxy">0</span>个代码星系<br>
+                    你拥有<span id="data">0</span>数据<br>
+                    你的代码星系每秒产生<span id="dps">0</span>数据<br>
+                    你的数据将你的代码产量乘以1+ln(x+1)=<span id="dataeffect">1</span><br>
+                    <button onclick="buyCodeGalaxy()" class="galaxy">购买一个代码星系<br><span id="galaxyCost">1e18</span>行代码</button>
+                    <br><button onclick="maxGalaxy()" class="galaxy">购买最大</button>
+                    <div>
+                        <h3>升级</h3>
+                        <div>
+                            <button class="galaxy dataupgrade" onclick="gupgrade(0)" id="du1">1.声望获取x3<br>100数据</button>
+                            <button class="galaxy dataupgrade" onclick="gupgrade(1)" id="du2">2.数据获取x3<br>1,200数据</button>
+                            <button class="galaxy dataupgrade" onclick="gupgrade(2)" id="du3">3.声望加成代码获取量<br>1+lg(x+1)<br>3,000数据</button>
+                        </div>
+                        <div>
+                            <button class="galaxy dataupgrade" onclick="gupgrade(3)" id="du4">4.声望加成数据获取量<br>1+sqrt(ln(x+1))<br>5,000数据</button>
+                            <button class="galaxy dataupgrade" onclick="gupgrade(4)" id="du5">5.星系的效果是原来的1.5倍<br>8,000数据</button>
+                            <button class="galaxy dataupgrade" onclick="gupgrade(5)" id="du6">6.每秒获得10%声望时获得的PP<br>2e5数据</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab5" class="hidden">
+            开发中...
+        </div>
+        <div id="softcaps">
+            <p id="softcap">每秒代码超过<b>1e40</b>时将被软上限！</p>
         </div>
     </body>
     <script src="break_eternity.js"></script>
     <script src="main.js"></script>
     <script src="prestige.js"></script>
     <script src="files/news.js"></script>
-    <script>if(typeof game.prups[4] != 'undefined')document.getElementById("pbuyables").className=(game.prups[4])?"tab":"hidden"</script>
+    <script>if(typeof game.prups[4] != 'undefined')document.getElementById("pbuyables").className=(game.prups[4])?"tab":"hidden"
+    DUupdate();</script>
 </html>
