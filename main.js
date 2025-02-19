@@ -71,7 +71,22 @@ function fmt3dig(n,f=game.notation){
 var game={};
 imprice=[new D(1048576),new D(2e7),new D(1.25e8),new D(1e9),new D(1e10)];
 function checkOldVersion(){
-    
+    if(typeof game.u1 == 'undefined'){
+        game.u1={
+        bought:new D(0),
+        price:new D(1)
+    }
+    }    if(typeof game.u2 == 'undefined'){
+        game.u2={
+        bought:new D(0),
+        price:new D(15)
+    }
+    }if(typeof game.u3 == 'undefined'){
+        game.u3={
+        bought:new D(0),
+        price:new D(1000)
+    }
+    }
     if(typeof game.imps=='undefined'){
         game.imps=new Array()
     }
