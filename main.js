@@ -1,14 +1,16 @@
 const PU_LENGTH=6;
+const D=Decimal
 
 //数字格式化
 //如果不合法会返回Invalid Notation!
 function formatnum(n,f=game.notation){
+    if(String(n)=='NaN')return 'NaN';
     if(f=="sci"){
     if(n.lessThan(new D("1e9"))){return Number(String(n.round())).toLocaleString()}
     else if(n.lessThan(new D("1e1000000000"))){return ((n.mantissa*100)/100).toFixed(2)+"e"+Math.floor(n.e).toLocaleString()}
-    else if(n.lessThan(new D("1F10"))){return "e"+formatnum(new D(((n.log(10)).times(100)).round().divideBy(100)))}
-    else if(n.slog().lessThan(new D(1e9))){return (Number(String(new D(10).tetrate(n.slog().minus(n.slog().floor()))))).toFixed(2)+"F"+formatnum(n.slog().floor())}
-    else{return "F"+formatnum(n.slog())}
+    else if(n.lessThan(new D("1F10"))){return "e"+formatnum(new D(((n.log(10)).times(100),f).round().divideBy(100)))}
+    else if(n.slog().lessThan(new D(1e9))){return (Number(String(new D(10).tetrate(n.slog().minus(n.slog().floor()))))).toFixed(2)+"F"+formatnum(n.slog().floor(),f)}
+    else{return "F"+formatnum(n.slog(),f)}
     }
     else if(f=="std"){
         var illion_e0=['','U','D','T','Qa','Qi','Sx','Sp','Oc','No'];
@@ -24,6 +26,7 @@ function formatnum(n,f=game.notation){
                 man=1;
                 ill+=1;
             }
+            if(ill<-1)return formatnum(n,'sci')
             if(ill==-1)return String(Math.round(man));
             if(ill==0)return man.toFixed(1)+" K";
             if(ill==1)return man.toFixed(1)+" M";
@@ -67,6 +70,59 @@ if(typeof game == 'undefined')game={};
 //游戏信息
 var game;
 imprice=[new D(1048576),new D(2e7),new D(1.25e8),new D(1e9),new D(1e10)];
+function checkOldVersion(){
+    if(typeof game.imps=='undefined'){
+        game.imps=new Array()
+    }
+    if(typeof game.prups=='undefined'){
+        game.prups=new Array()
+    }
+    if(typeof game.prestigepoints=='undefined'){
+        game.prestigepoints=new D(0)
+    }
+    for(var i=0;i<=4;i++){
+        if(typeof game.imps[i]=='undefined')game.imps[i]=false;
+    }
+    for(var i=0;i<PU_LENGTH;i++){
+        if(typeof game.prups[i]=='undefined')game.prups[i]=false;
+    }
+    if(typeof game.l0auto=='undefined'){
+        game.l0auto=false
+    }
+    if(typeof game.notation=='undefined')game.notation='sci';
+    if(typeof game.pbuy_k=='undefined')game.pbuy_k=new D(1);
+    if(typeof game.pbuy1cost=='undefined' || new D(game.pbuy1cost).lessThan(15)/*检查异常情况*/)game.pbuy1cost=new D(15);
+    if(typeof game.galaxy == 'undefined')game.galaxy={
+        unlocked:false,
+        amount:new D(0),
+        price:new D(1e18),
+        data:new D(0),
+        dps:new D(0),
+        dups:[
+            false,false,false,
+            false,false,false
+        ]
+    }
+}
+    checkOldVersion()
+    function changeToDecimal(){
+        checkOldVersion()
+        game.codes=new D(game.codes)
+        game.cps=new D(game.cps)
+        game.u1.bought=new D(game.u1.bought)
+        game.u1.price=new D(game.u1.price)
+        game.u2.bought=new D(game.u2.bought)
+        game.u2.price=new D(game.u2.price)
+        game.u3.bought=new D(game.u3.bought)
+        game.u3.price=new D(game.u3.price)
+        game.prestigepoints=new D(game.prestigepoints)
+        game.pbuy_k=new D(game.pbuy_k)
+        game.pbuy1cost=new D(game.pbuy1cost)
+        game.galaxy.amount=new D(game.galaxy.amount)
+        game.galaxy.price=new D(game.galaxy.price)
+        game.galaxy.data=new D(game.galaxy.data)
+        game.galaxy.dps=new D(game.galaxy.dps);
+        }
 function init(flag=false){//初始化
 if(flag||typeof localStorage.CodingIncremental == 'undefined' || localStorage.CodingIncremental=="{}" ){
 console.log("初始化开始")
@@ -89,7 +145,17 @@ console.log("初始化开始")
     l0auto:false,
     prestigepoints:new D(0),
     prups:[false,false,false,false,false],
-    
+    galaxy:{
+        unlocked:false,
+        amount:new D(0),
+        price:new D(1e18),
+        data:new D(0),
+        dps:new D(0),
+        dups:[
+            false,false,false,
+            false,false,false
+        ]
+    },
     notation:"sci",
     pbuy_k:new D(1),
     pbuy1cost:new D(15)
@@ -100,46 +166,14 @@ else {
 const gamedata=localStorage.getItem("CodingIncremental")
 game=JSON.parse(gamedata)}
 //以下代码用于将游戏数据转换成Decimal类型
-game.codes=new D(game.codes)
-game.cps=new D(game.cps)
-game.u1.bought=new D(game.u1.bought)
-game.u1.price=new D(game.u1.price)
-game.u2.bought=new D(game.u2.bought)
-game.u2.price=new D(game.u2.price)
-game.u3.bought=new D(game.u3.bought)
-game.u3.price=new D(game.u3.price)
-game.prestigepoints=new D(game.prestigepoints)
-game.pbuy_k=new D(game.pbuy_k)
-game.pbuy1cost=new D(game.pbuy1cost)
+checkOldVersion();
+changeToDecimal()
 if(typeof game.prups != 'undefined')
-if(game.prups[4])document.getElementById("pbuyables").class="tab";
+if(typeof game.prups[4]!='undefnied')if(game.prups[4])document.getElementById("pbuyables").class="tab";
 }
 init()
-//检查是否有缺失的信息
-function checkOldVersion(){
-if(typeof game.imps=='undefined'){
-    game.imps=new Array()
-}
-if(typeof game.prups=='undefined'){
-    game.prups=new Array()
-}
-if(typeof game.prestigepoints=='undefined'){
-    game.prestigepoints=new D(0)
-}
-for(var i=0;i<=4;i++){
-    if(typeof game.imps[i]=='undefined')game.imps[i]=false;
-}
-for(var i=0;i<PU_LENGTH;i++){
-    if(typeof game.prups[i]=='undefined')game.prups[i]=false;
-}
-if(typeof game.l0auto=='undefined'){
-    game.l0auto=false
-}
-if(typeof game.notation=='undefined')game.notation='sci';
-if(typeof game.pbuy_k=='undefined')game.pbuy_k=new D(1);
-if(typeof game.pbuy1cost=='undefined' || game.pbuy1cost.lessThan(15)/*检查异常情况*/)game.pbuy1cost=new D(15);
-}
-checkOldVersion()
+
+
 
 function getu1price(n){
     return new D(1.2).pow(n)
@@ -165,6 +199,7 @@ function PUupdate(){
     }
 }
 PUupdate()
+
 function update(){//每50ms运行一次的更新函数
     if(game.pbuy_k.lessThan(1))game.pbuy_k=new D(1);
     game.cps=(game.u1.bought.times(game.imps[4]?game.u1.bought.pow(0.5).plus(1):1)
@@ -173,7 +208,16 @@ function update(){//每50ms运行一次的更新函数
     .times((game.u2.bought.plus(1).times(game.imps[1]?(game.prups[3]?1.75:1.35):1))
     .pow(game.u3.bought.plus(1).pow(0.5))).times(game.prups[0]?3:1)
     .times(game.prups[2]?game.codes.plus(1).log(114514/*最臭的声望升级*/).plus(1):1)
-    .pow(game.pbuy_k)
+    .pow(game.pbuy_k.max(1))
+    .times(game.galaxy.data.plus(1).log(Math.E).plus(1))
+    .times(game.galaxy.dups[2]?2:1)
+    if(game.cps.greaterThanOrEqualTo(1e40)){//软上限
+        var exceed=game.cps.log10().minus(40).times(0.75);
+        game.cps=new Decimal(1e40).times(new D(10).pow(exceed));
+        document.getElementById('softcap').className='tab';
+    }else document.getElementById('softcap').className='hidden';
+    //console.log(game.cps);
+    setTimeout(function(){},1000)
     game.codes=game.codes.plus(game.cps.times(0.05))
     document.getElementById("codewrote").innerHTML=formatnum(game.codes)
     document.getElementById("codingspeed").innerHTML=formatnum(game.cps)
@@ -191,7 +235,7 @@ function update(){//每50ms运行一次的更新函数
     if(game.imps[3]&&game.l0auto){buyu1max();buyu2max();buyu3max();}
     document.getElementById("L0Auto").innerHTML=game.l0auto?"开":"关"
     document.getElementById("L0AutoButton").style.display=game.imps[3]?"inline":"none";
-    document.getElementById("ppgain").innerHTML=formatnum((game.codes.divideBy(1e9)).pow(new D(1).divideBy(3)).floor());
+    document.getElementById("ppgain").innerHTML=formatnum((game.codes.divideBy(1e9)).pow(new D(1).divideBy(3)).times(game.galaxy.dups[0]?3:1).floor());
     document.getElementById("pp").innerHTML=formatnum(game.prestigepoints);
     if(game.prups[5]){
         if(game.codes.greaterThan(1048576))game.imps[0]=true;
@@ -200,6 +244,15 @@ function update(){//每50ms运行一次的更新函数
         if(game.codes.greaterThan(1e9))game.imps[3]=true;
         if(game.codes.greaterThan(1e10))game.imps[4]=true;
     }
+    game.galaxy.data=game.galaxy.data.plus(new D(4).pow(game.galaxy.amount.times(game.galaxy.dups[4]?1.5:1)).minus(1).times(0.05).times(game.galaxy.dups[1]?3:1)
+    .times(game.galaxy.dups[3]?game.prestigepoints.plus(1).max(0).log(Math.E).pow(0.5).plus(1):1));
+    if(game.galaxy.dups[5]){
+        game.prestigepoints=game.prestigepoints.plus((game.codes.divideBy(1e9)).pow(new D(1).divideBy(3)).times(0.005).times(game.galaxy.dups[1]?3:1));
+    }
+    document.getElementById('data').innerHTML=formatnum(game.galaxy.data);
+    document.getElementById('dps').innerHTML=fmt3dig((new D(4).pow(game.galaxy.amount.times(game.galaxy.dups[4]?1.5:1)).minus(1).times(0.05).times(game.galaxy.dups[1]?3:1)
+    .times(game.galaxy.dups[3]?game.prestigepoints.plus(1).max(0).log(Math.E).pow(0.5).plus(1):1).times(20)));
+    document.getElementById('dataeffect').innerHTML=fmt3dig(game.galaxy.data.plus(1).log(Math.E).plus(1));
 }
 function pbuyable1(){
     if(typeof game.pbuy1cost == 'undefined')game.pbuy1cost=new D(15);
@@ -256,32 +309,8 @@ function buyu1max(){
         game.codes=game.codes.minus(game.prups[2]?0:getu1price(game.u1.bought.minus(1)))
     }
 }
-function t1(){
-    document.getElementById("tab1").className="tab"
-    document.getElementById("tab2").className="hidden"
-    document.getElementById("tab3").className="hidden"
-    document.getElementById("tab4").className="hidden"
-}
-function t2(){
-    document.getElementById("tab2").className="tab"
-    document.getElementById("tab1").className="hidden"
-    document.getElementById("tab3").className="hidden"
-    document.getElementById("tab4").className="hidden"
-}
-function t3(){
-    document.getElementById("tab3").className="tab"
-    document.getElementById("tab1").className="hidden"
-    document.getElementById("tab2").className="hidden"
-    document.getElementById("tab4").className="hidden"
-}
-function t4(){
-    document.getElementById("tab4").className="tab"
-    document.getElementById("tab1").className="hidden"
-    document.getElementById("tab2").className="hidden"
-    document.getElementById("tab3").className="hidden"
-}
 function t(a){
-    for(var i=1;i<=4;i++){
+    for(var i=1;i<=5;i++){
         document.getElementById("tab"+i).className=((i==a)?"tab":"hidden");
     }
 }
@@ -310,7 +339,7 @@ function hardreset(){
     var confirm=prompt("是否确认重置？这不会解锁任何加成！请输入\"coding incremental reset\"以确认。")
     if(confirm=="coding incremental reset"){
         game=undefined;
-        localStorage.CodingIncremental=undefined;
+        localStorage.removeItem("CodingIncremental");
         init(true);
         save();
     }
@@ -324,6 +353,7 @@ function exportSave(){
 function importSave(){
     var Save=prompt("粘贴存档...")
     game=JSON.parse(atob(Save));
+    init();
     checkOldVersion();
 }
 function changeNotation(){
@@ -334,3 +364,8 @@ function changeNotation(){
 }
 document.getElementById("pbuy_k").innerHTML=fmt3dig(game.pbuy_k);
 document.getElementById("pbuy1cost").innerHTML=formatnum(game.pbuy1cost);
+document.getElementById("galaxy").innerHTML=formatnum(game.galaxy.amount);
+if(game.galaxy.unlocked){
+    document.getElementById("unlockGalaxyButton").className='hidden';
+    document.getElementById("galaxy_main").className="tab";
+}
