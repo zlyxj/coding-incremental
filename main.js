@@ -122,7 +122,7 @@ function checkOldVersion(){
         game.galaxy.price=new D(game.galaxy.price)
         game.galaxy.data=new D(game.galaxy.data)
         game.galaxy.dps=new D(game.galaxy.dps);
-        }
+        }changeToDecimal()
 function init(flag=false){//初始化
 if(flag||typeof localStorage.CodingIncremental == 'undefined' || localStorage.CodingIncremental=="{}" ){
 console.log("初始化开始")
