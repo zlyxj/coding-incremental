@@ -41,11 +41,33 @@ a{
     border-color:#9999FF;
     /*此链接不是rickroll
     https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click
-                                            ————zlyxj
+                                            ————Pevihelle
     */
 }
 button.prestige:disabled{
     background-color:#e8e8e8;
     color:#777777;
     border-color:#222222;
+}
+.galaxy{
+    color:blue;
+    background-color:black;
+    border-color:blue;
+}
+.dataupgrade{
+    height:80px;
+    width:110px;
+    background-color:black;
+    color:lime;
+    border-color:lime;
+}
+.boughtdup{
+    height:80px;
+    width:110px;
+    background-color:lime;
+    color:black;
+    border-color:lime;
+}
+#softcap{
+    color:red;
 }
